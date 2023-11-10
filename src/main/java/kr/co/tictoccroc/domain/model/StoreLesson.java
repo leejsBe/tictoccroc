@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,6 +29,9 @@ public class StoreLesson {
   @ManyToOne(fetch = FetchType.LAZY)
   private Lesson lesson;
 
+  @Column(name = "lesson_day")
+  private LocalDate lessonDay;
+  
   @Column(name = "max_count_by_day")
   private int maxCountByDay;
 

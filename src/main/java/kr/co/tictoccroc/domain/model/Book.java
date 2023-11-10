@@ -29,8 +29,6 @@ public class Book {
   @ManyToOne(fetch = FetchType.LAZY)
   private Parent parent;
 
-  @Column(name = "lesson_day")
-  private LocalDate lessonDay;
 
   @Column(name = "count")
   private int count;

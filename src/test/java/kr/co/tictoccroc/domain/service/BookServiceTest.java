@@ -20,7 +20,7 @@ class BookServiceTest {
 
   @Test
   @DisplayName("당일 예약 테스트")
-  public void fail() {
+  void fail() {
     BookReq bookReq = BookReq.builder()
       .storeLessonId(1)
       .parentId(1)
