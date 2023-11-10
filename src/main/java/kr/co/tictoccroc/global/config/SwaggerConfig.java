@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
   @Bean
-  public OpenAPI bookingAPIConfig() {
+  public OpenAPI APIConfig() {
 
     Contact contact = new Contact();
 
@@ -32,7 +32,7 @@ public class SwaggerConfig {
   public GroupedOpenApi allApi() {
     return GroupedOpenApi.builder()
       .group("All")
-      .pathsToExclude("/tictoccroc/**", "/tictoccroc/**")
+      .pathsToExclude("/test/**")
       .build();
   }
 
