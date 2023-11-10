@@ -1,5 +1,6 @@
 package kr.co.tictoccroc.domain.controller;
 
+import kr.co.tictoccroc.domain.dto.book.BookRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class BookController {
    * 예약
    */
   @PostMapping("/book")
-  public ResponseEntity<?> book() {
-    return ResponseEntity.ok(null);
+  public ResponseEntity<BookRes> book() {
+    return ResponseEntity.ok(BookRes.builder().build());
   }
 
 }
