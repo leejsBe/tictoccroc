@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum CancelResCode implements ResCode {
 
   NOT_FOUND_CANCEL("C001", "예약을 찾지 못하였습니다."),
+  ALREADY_CANCEL("C002", "예약이 이미 취소되었습니다."),
   ;
 
   private final String code;

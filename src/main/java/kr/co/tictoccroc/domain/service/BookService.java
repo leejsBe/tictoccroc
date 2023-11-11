@@ -14,6 +14,7 @@ import kr.co.tictoccroc.global.enumeration.BookStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class BookService {
   private final ParentRepo parentRepo;
 
 
+  @Transactional
   public BookRes book(BookReq bookReq) {
     StoreLesson storeLesson = getStoreLesson(bookReq);
 
@@ -99,11 +101,14 @@ public class BookService {
    * 데이터 저장
    */
   private Book save(StoreLesson storeLesson, Parent parent, int count) {
-    return bookRepo.save(Book.builder()
+    Book book = bookRepo.save(Book.builder()
       .storeLesson(storeLesson)
       .parent(parent)
       .count(count)
       .bookStatus(BookStatus.SUCCESS)
       .build());
+
+    log.info("예약 번호 : " + book.getId());
+    return book;
   }
 }
