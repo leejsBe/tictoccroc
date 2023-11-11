@@ -31,7 +31,7 @@ public class VerifyBookerService {
    * 예약현황 조회
    */
   private List<Book> getBooks(VerifyBookerReq verifyBookerReq) {
-    if (verifyBookerReq.getLessonId() == 0 && verifyBookerReq.getStoreId() == 0) {
+    if (verifyBookerReq.getLessonId() <= 0 && verifyBookerReq.getStoreId() <= 0) {
       throw new VerifyException(VerifyResCode.CONDITION_FAIL);
     }
 

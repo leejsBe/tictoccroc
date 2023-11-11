@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum VerifyResCode implements ResCode {
 
   CONDITION_FAIL("V001", "예약 현황 요청이 파라미터가 잘못 되었습니다."),
+  NOT_FOUND_STORE("V002", "매장을 찾지 못하였습니다.")
 
   ;
 
