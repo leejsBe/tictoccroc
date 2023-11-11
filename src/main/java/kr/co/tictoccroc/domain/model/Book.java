@@ -36,6 +36,7 @@ public class Book {
   private int count;
 
   @Column(name = "status")
+  @Enumerated(EnumType.STRING)
   private BookStatus bookStatus;
 
 
