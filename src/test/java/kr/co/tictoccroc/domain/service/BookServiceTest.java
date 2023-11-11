@@ -51,7 +51,53 @@ class BookServiceTest {
       bookService.book(bookReq);
     });
 
-    assertEquals(exception.getMessage(), BookResCode.BOOK_TODAY_FAIL.getMsg());
+    assertEquals(BookResCode.BOOK_TODAY_FAIL.getMsg(), exception.getMessage());
+  }
+
+
+  @Test
+  @Transactional
+  @DisplayName("과거 예약 테스트")
+  void fail_2() {
+    List<StoreLesson> storeLessons = storeLessonRepo.findByLessonDayPast(LocalDate.now());
+    StoreLesson storeLesson = storeLessons.get(0);
+
+    List<Parent> parent = parentRepo.findAll();
+
+    BookReq bookReq = BookReq.builder()
+      .storeLessonId(storeLesson.getId())
+      .parentId(parent.get(0).getId())
+      .count(1)
+      .build();
+
+    Throwable exception = assertThrows(BookException.class, () -> {
+      bookService.book(bookReq);
+    });
+
+    assertEquals(BookResCode.BOOK_PAST_DAY_FAIL.getMsg(), exception.getMessage());
+  }
+
+
+  @Test
+  @Transactional
+  @DisplayName("14일 이후 예약 테스트")
+  void fail_3() {
+    List<StoreLesson> storeLessons = storeLessonRepo.findByLessonDayFuture(LocalDate.now().plusDays(14));
+    StoreLesson storeLesson = storeLessons.get(0);
+
+    List<Parent> parent = parentRepo.findAll();
+
+    BookReq bookReq = BookReq.builder()
+      .storeLessonId(storeLesson.getId())
+      .parentId(parent.get(0).getId())
+      .count(1)
+      .build();
+
+    Throwable exception = assertThrows(BookException.class, () -> {
+      bookService.book(bookReq);
+    });
+
+    assertEquals(BookResCode.BOOK_RESERVE_TIME_FAIL.getMsg(), exception.getMessage());
   }
 
 }

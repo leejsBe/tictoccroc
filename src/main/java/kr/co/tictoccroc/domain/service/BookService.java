@@ -57,7 +57,7 @@ public class BookService {
     }
 
     /// 현재일로 부터 14일 이전 일정체크
-    if (LocalDate.now().plusDays(14).isAfter(storeLesson.getLessonDay())) {
+    if (!LocalDate.now().plusDays(14).isAfter(storeLesson.getLessonDay())) {
       throw new BookException(BookResCode.BOOK_RESERVE_TIME_FAIL);
     }
 
