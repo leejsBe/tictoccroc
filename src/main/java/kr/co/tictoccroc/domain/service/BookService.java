@@ -10,6 +10,7 @@ import kr.co.tictoccroc.domain.model.StoreLesson;
 import kr.co.tictoccroc.domain.repository.BookRepo;
 import kr.co.tictoccroc.domain.repository.ParentRepo;
 import kr.co.tictoccroc.domain.repository.StoreLessonRepo;
+import kr.co.tictoccroc.global.enumeration.BookStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -102,6 +103,7 @@ public class BookService {
       .storeLesson(storeLesson)
       .parent(parent)
       .count(count)
+      .bookStatus(BookStatus.SUCCESS)
       .build());
   }
 }
