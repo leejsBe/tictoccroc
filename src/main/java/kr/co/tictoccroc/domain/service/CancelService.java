@@ -28,7 +28,7 @@ public class CancelService {
     /// 예약 상태 취소 변경
     book.changeStatus(BookStatus.CANCEL);
 
-    log.info("취소 예약 번호 : " + book);
+    log.info("취소 예약 번호 : " + book.getId());
     return true;
   }
 
