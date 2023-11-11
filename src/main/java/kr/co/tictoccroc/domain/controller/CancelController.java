@@ -1,5 +1,6 @@
 package kr.co.tictoccroc.domain.controller;
 
+import kr.co.tictoccroc.domain.service.CancelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CancelController {
 
+  private final CancelService cancelService;
 
   /**
    * 예약 취소
    */
   @PutMapping("/book/{bookNo}")
-  public ResponseEntity<?> cancel(@PathVariable("bookNo") String bookNo) {
-    return ResponseEntity.ok(null);
+  public ResponseEntity<Boolean> cancel(@PathVariable("bookNo") long bookNo) {
+    return ResponseEntity.ok(cancelService.cancel(bookNo));
   }
 
 }
