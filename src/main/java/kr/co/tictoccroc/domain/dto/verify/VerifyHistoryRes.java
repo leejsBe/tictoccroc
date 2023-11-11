@@ -26,6 +26,8 @@ public class VerifyHistoryRes {
   public static class BookStatus {
 
     private final String bookNo;
+    private final String storeName;
+    private final String lessonName;
     private final String status;
     private final int count;
     private final String createAt;
@@ -34,6 +36,8 @@ public class VerifyHistoryRes {
 
     public BookStatus(Book book) {
       this.bookNo = String.valueOf(book.getId());
+      this.storeName = book.getStoreLesson().getStore().getName();
+      this.lessonName = book.getStoreLesson().getLesson().getName();
       this.status = book.getBookStatus().name();
       this.count = book.getCount();
       this.createAt = book.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
