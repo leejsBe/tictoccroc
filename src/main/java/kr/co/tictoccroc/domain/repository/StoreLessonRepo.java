@@ -21,7 +21,7 @@ public interface StoreLessonRepo extends JpaRepository<StoreLesson, Long> {
   List<StoreLesson> findByLessonDayToday(@Param("lessonDay") LocalDate lessonDay);
 
 
-  @Query("SELECT sl FROM StoreLesson sl WHERE sl.delAt IS NULL AND sl.lessonDay > :lessonDay")
+  @Query("SELECT sl FROM StoreLesson sl WHERE sl.delAt IS NULL AND sl.lessonDay > :lessonDay ORDER BY sl.lessonDay ASC")
   List<StoreLesson> findByLessonDayFuture(@Param("lessonDay") LocalDate lessonDay);
 
 }

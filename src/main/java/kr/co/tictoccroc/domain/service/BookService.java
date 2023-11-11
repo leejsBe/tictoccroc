@@ -5,8 +5,10 @@ import kr.co.tictoccroc.domain.dto.book.BookRes;
 import kr.co.tictoccroc.domain.enumeration.BookResCode;
 import kr.co.tictoccroc.domain.exception.BookException;
 import kr.co.tictoccroc.domain.model.Book;
+import kr.co.tictoccroc.domain.model.Parent;
 import kr.co.tictoccroc.domain.model.StoreLesson;
 import kr.co.tictoccroc.domain.repository.BookRepo;
+import kr.co.tictoccroc.domain.repository.ParentRepo;
 import kr.co.tictoccroc.domain.repository.StoreLessonRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +26,19 @@ public class BookService {
 
   private final StoreLessonRepo storeLessonRepo;
   private final BookRepo bookRepo;
+  private final ParentRepo parentRepo;
 
 
   public BookRes book(BookReq bookReq) {
     StoreLesson storeLesson = getStoreLesson(bookReq);
-    List<Book> books = getBook(bookReq, storeLesson);
 
-    save(storeLesson, bookReq);
-    return null;
+    /// 기존 예약 리스트 체크
+    checkBookExist(bookReq, storeLesson);
+
+    Parent parent = parentRepo.findById(bookReq.getParentId()).orElseThrow(() -> new BookException(BookResCode.NOT_FOUND_PARENT));
+    Book book = save(storeLesson, parent, bookReq.getCount());
+
+    return BookRes.builder().bookNo(String.valueOf(book.getId())).build();
   }
 
 
@@ -65,20 +72,18 @@ public class BookService {
 
 
   /**
-   * 해당 수업의 예약리스트 조회
+   * 기존 예약 리스트 체크
    */
-  private List<Book> getBook(BookReq bookReq, StoreLesson storeLesson) {
+  private void checkBookExist(BookReq bookReq, StoreLesson storeLesson) {
     List<Book> books = Optional.ofNullable(bookRepo.findByStoreLessonAndParent(bookReq.getStoreLessonId())).orElse(new ArrayList<>());
     validation(books, bookReq, storeLesson);
-
-    return books;
   }
 
   private void validation(List<Book> books, BookReq bookReq, StoreLesson storeLesson) {
     /// 동일인이 동일매장, 동일수업 중복 예약 체크
     Optional<Book> booked = books.stream().filter(book -> book.getStoreLesson().getId() == book.getStoreLesson().getId() && book.getParent().getId() == bookReq.getParentId()).findFirst();
     if (booked.isPresent()) {
-      throw new BookException(BookResCode.BOOK_RESERVE_TIME_FAIL);
+      throw new BookException(BookResCode.BOOK_DUPLICATION_FAIL);
     }
 
     /// 최대 인원수 체크
@@ -92,7 +97,11 @@ public class BookService {
   /**
    * 데이터 저장
    */
-  private Book save(StoreLesson storeLesson, BookReq bookReq) {
-    return null;
+  private Book save(StoreLesson storeLesson, Parent parent, int count) {
+    return bookRepo.save(Book.builder()
+      .storeLesson(storeLesson)
+      .parent(parent)
+      .count(count)
+      .build());
   }
 }
