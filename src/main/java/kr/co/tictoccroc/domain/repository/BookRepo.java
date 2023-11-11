@@ -23,4 +23,11 @@ public interface BookRepo extends JpaRepository<Book, Long> {
   @Query("SELECT b FROM Book b JOIN FETCH b.storeLesson sl WHERE b.delAt IS NULL AND sl.delAt IS NULL AND b.bookStatus <> 'CANCEL' AND sl.lesson.id = :lessonId")
   List<Book> findByLesson(@Param("lessonId") long lessonId);
 
+
+  @Query("SELECT b FROM Book b JOIN FETCH b.storeLesson sl WHERE b.delAt IS NULL AND sl.delAt IS NULL AND sl.store.id = :storeId")
+  List<Book> findByStoreIncludeCancel(@Param("storeId") long storeId);
+
+
+  @Query("SELECT b FROM Book b JOIN FETCH b.storeLesson sl WHERE b.delAt IS NULL AND sl.delAt IS NULL AND sl.lesson.id = :lessonId")
+  List<Book> findByLessonIncludeCancel(@Param("lessonId") long lessonId);
 }
