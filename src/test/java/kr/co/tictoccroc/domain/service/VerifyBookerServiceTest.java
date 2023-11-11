@@ -1,22 +1,30 @@
 package kr.co.tictoccroc.domain.service;
 
 import kr.co.tictoccroc.domain.dto.verify.VerifyBookerReq;
+import kr.co.tictoccroc.domain.dto.verify.VerifyBookerRes;
 import kr.co.tictoccroc.domain.enumeration.VerifyResCode;
 import kr.co.tictoccroc.domain.exception.VerifyException;
+import kr.co.tictoccroc.domain.model.Store;
+import kr.co.tictoccroc.domain.repository.StoreRepo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class VerifyBookerServiceTest {
 
   @Autowired
   public VerifyBookerService verifyBookerService;
+
+  @Autowired
+  public StoreRepo storeRepo;
+
 
   @Test
   @Transactional
@@ -44,6 +52,22 @@ class VerifyBookerServiceTest {
     assertEquals(VerifyResCode.CONDITION_FAIL.getMsg(), exception.getMessage());
   }
 
+
+  @Test
+  @Transactional
+  @DisplayName("매장별 예약자현황 테스트")
+  void success() {
+    List<Store> stores = storeRepo.findByDelAtIsNull();
+    Store store = stores.get(0);
+
+    VerifyBookerReq req = VerifyBookerReq.builder().storeId(store.getId()).build();
+
+    VerifyBookerRes result = verifyBookerService.verify(req);
+
+    assertNotNull(result);
+
+    result.getBookers().forEach(System.out::println);
+  }
 
 
 }
