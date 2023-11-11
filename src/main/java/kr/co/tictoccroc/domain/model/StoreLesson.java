@@ -35,12 +35,6 @@ public class StoreLesson {
   @Column(name = "max_count_by_day")
   private int maxCountByDay;
 
-  @Column(name = "year")
-  private int year;
-
-  @Column(name = "month")
-  private int month;
-
 
   @CreationTimestamp
   @Column(updatable = false)
