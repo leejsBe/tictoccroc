@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kr.co.tictoccroc.domain.dto.book.BookReq;
 import kr.co.tictoccroc.domain.dto.book.BookRes;
+import kr.co.tictoccroc.domain.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BookController {
 
+  private final BookService bookService;
 
   /**
    * 예약
@@ -25,7 +27,7 @@ public class BookController {
   @Operation(summary = "book", description = "예약 API")
   @PostMapping("/book")
   public ResponseEntity<BookRes> book(@RequestBody @Valid BookReq bookReq) {
-    return ResponseEntity.ok(BookRes.builder().build());
+    return ResponseEntity.ok(bookService.book(bookReq));
   }
 
 }

@@ -1,21 +1,24 @@
 package kr.co.tictoccroc.global.exception;
 
+import kr.co.tictoccroc.domain.exception.CancelException;
 import kr.co.tictoccroc.global.dto.ApiErrorRes;
 import kr.co.tictoccroc.global.enumeration.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
-@Order(1)
-@RestControllerAdvice
+@ControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 
@@ -29,11 +32,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 
   @ExceptionHandler(BasicException.class)
-  protected ResponseEntity<Object> handleBasicException(BasicException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+  protected ResponseEntity<Object> handleBasicException(BasicException ex) {
     log.info("-- BasicException 발생..!!", ex);
     return new ResponseEntity<>(ApiErrorRes.builder()
-      .status(status)
+      .status(HttpStatus.BAD_REQUEST)
       .message(ex.getMessage())
-      .code(ErrorCode.VALID_ERROR.getCode()).build(), status);
+      .code(ErrorCode.VALID_ERROR.getCode()).build(), HttpStatus.BAD_REQUEST);
   }
+
 }
