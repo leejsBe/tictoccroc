@@ -71,7 +71,7 @@ class VerifyBookerServiceTest {
 
     assertNotNull(result);
 
-    result.getBookers().forEach(System.out::println);
+    result.getStoreLessons().forEach(System.out::println);
   }
 
 
@@ -88,6 +88,6 @@ class VerifyBookerServiceTest {
 
     assertNotNull(result);
 
-    result.getBookers().forEach(System.out::println);
+    result.getStoreLessons().forEach(System.out::println);
   }
 }

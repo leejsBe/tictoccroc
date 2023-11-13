@@ -1,6 +1,7 @@
 package kr.co.tictoccroc.domain.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import kr.co.tictoccroc.domain.dto.book.BookReq;
 import kr.co.tictoccroc.domain.dto.book.BookRes;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Book Controller", description = "예약 요청 컨트롤러")
 @Slf4j
 @RestController
 @RequestMapping("/tictoccroc")
