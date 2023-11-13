@@ -6,12 +6,13 @@ import kr.co.tictoccroc.domain.enumeration.VerifyResCode;
 import kr.co.tictoccroc.domain.exception.VerifyException;
 import kr.co.tictoccroc.domain.model.Book;
 import kr.co.tictoccroc.domain.model.Parent;
+import kr.co.tictoccroc.domain.model.StoreLesson;
 import kr.co.tictoccroc.domain.repository.BookRepo;
 import kr.co.tictoccroc.domain.repository.ParentRepo;
+import kr.co.tictoccroc.domain.repository.StoreLessonRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class VerifyBookerService {
-
 
   private final BookRepo bookRepo;
   private final ParentRepo parentRepo;
@@ -33,7 +33,7 @@ public class VerifyBookerService {
     Set<Long> parentIds = books.stream().map(book -> book.getParent().getId()).collect(Collectors.toSet());
     Map<Long, Parent> parentMap = getParents(parentIds);
 
-    return new VerifyBookerRes(parentMap);
+    return new VerifyBookerRes(books, parentMap);
   }
 
 
@@ -49,11 +49,7 @@ public class VerifyBookerService {
       return bookRepo.findByLesson(verifyBookerReq.getLessonId());
     }
 
-    if (verifyBookerReq.getStoreId() != 0) {
-      return bookRepo.findByStore(verifyBookerReq.getStoreId());
-    }
-
-    return Collections.emptyList();
+    return bookRepo.findByStore(verifyBookerReq.getStoreId());
   }
 
 

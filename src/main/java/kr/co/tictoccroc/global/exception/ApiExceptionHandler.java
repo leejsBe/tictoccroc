@@ -1,6 +1,5 @@
 package kr.co.tictoccroc.global.exception;
 
-import kr.co.tictoccroc.domain.exception.CancelException;
 import kr.co.tictoccroc.global.dto.ApiErrorRes;
 import kr.co.tictoccroc.global.enumeration.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.sql.SQLException;
+
 @Slf4j
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -28,6 +29,25 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       .status(status)
       .message(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage())
       .code(ErrorCode.VALID_ERROR.getCode()).build(), status);
+  }
+
+
+  @ExceptionHandler(SQLException.class)
+  protected ResponseEntity<Object> handleSQLException(SQLException ex) {
+    log.info("-- SQLException 발생..!!", ex);
+    return new ResponseEntity<>(ApiErrorRes.builder()
+      .status(HttpStatus.FORBIDDEN)
+      .message(ErrorCode.DB_ERROR.getMsg())
+      .code(ErrorCode.DB_ERROR.getCode()).build(), HttpStatus.FORBIDDEN);
+  }
+
+  @ExceptionHandler(NullPointerException.class)
+  protected ResponseEntity<Object> handleNullPointException(NullPointerException ex) {
+    log.info("-- NullPointException 발생..!!", ex);
+    return new ResponseEntity<>(ApiErrorRes.builder()
+      .status(HttpStatus.FORBIDDEN)
+      .message(ex.getMessage())
+      .code(ErrorCode.VALID_ERROR.getCode()).build(), HttpStatus.FORBIDDEN);
   }
 
 

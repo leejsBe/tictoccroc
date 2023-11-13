@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
-  VALID_ERROR("999", HttpStatus.BAD_REQUEST, ""),
-    ;
+  VALID_ERROR("E900", HttpStatus.BAD_REQUEST, ""),
+  DB_ERROR("E901", HttpStatus.FORBIDDEN, "DB ERROR")
+  ;
 
 
   private final String code;
