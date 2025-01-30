@@ -4,3 +4,4 @@ spring:
       on-profile: local
     import:
       - application-localConfig.yml
+      - application-localApi.yml

@@ -1,4 +1,4 @@
-package kr.co.tictoccroc;
+package kr.co.moin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

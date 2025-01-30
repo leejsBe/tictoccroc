@@ -1,4 +1,4 @@
-package kr.co.tictoccroc;
+package kr.co.moin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

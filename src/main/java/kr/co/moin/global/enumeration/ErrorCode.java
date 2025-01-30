@@ -12,6 +12,8 @@ public enum ErrorCode implements ResCode {
   DB_ERROR(1511, "DB 오류"),
   ENCRYPTION_DECRYPTION_ERROR(1512, "암복호화 오류"),
   NO_KEY_ERROR(1513, "암복호화 키 오류"),
+  FAIL_API(1514, "API 요청 오류"),
+  FAIL_LOGIN(1515, "로그인 실패"),
 
   ;
 

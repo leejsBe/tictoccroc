@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "quote", catalog = "moin")
+@Table(name = "quote")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class Quote {
   private long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private User user;
+  private Member member;
 
   @Column(name = "exchange_rate")
   private double exchangeRate;

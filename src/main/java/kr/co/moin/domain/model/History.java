@@ -1,7 +1,6 @@
 package kr.co.moin.domain.model;
 
 import jakarta.persistence.*;
-import kr.co.moin.domain.enumeration.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "history", catalog = "moin")
+@Table(name = "history")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +22,7 @@ public class History {
   private long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private User user;
+  private Member member;
 
 
   @Column(name = "source_amount")
