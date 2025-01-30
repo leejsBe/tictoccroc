@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "lesson", catalog = "tictoccroc")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

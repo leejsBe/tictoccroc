@@ -6,16 +6,18 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     database: mysql
 
 
   datasource:
-    #    url: jdbc:h2:mem:tictoccroc;MODE=MySQL;DATABASE_TO_LOWER=TRUE #mysql 모드 설정
-    #    username: sa
-    #    password: 4432
-    #    driver-class-name: org.h2.Driver
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/tictoccroc?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull"
-    username: 'root'
-    password: '1234'
+    url: jdbc:h2:mem:moin;MODE=MySQL;DATABASE_TO_LOWER=TRUE #mysql 모드 설정
+    username: sa
+    password: 4432
+    driver-class-name: org.h2.Driver
+
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

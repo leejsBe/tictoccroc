@@ -1,6 +1,7 @@
-package kr.co.tictoccroc.domain.model;
+package kr.co.moin.domain.model;
 
 import jakarta.persistence.*;
+import kr.co.moin.domain.enumeration.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,31 +9,36 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@Table(name = "user", catalog = "moin")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreLesson {
+public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Store store;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Lesson lesson;
+  @Column(name = "user_id", unique = true)
+  private String userId;
 
-  @Column(name = "lesson_day")
-  private LocalDate lessonDay;
-  
-  @Column(name = "max_count_by_day")
-  private int maxCountByDay;
+  @Column(name = "name")
+  private String name;
+
+  @Column(name = "password")
+  private String password;
+
+  @Column(name = "id_type")
+  @Enumerated(EnumType.STRING)
+  private IdType idType;
+
+  @Column(name = "id_value")
+  private String idValue;
 
 
   @CreationTimestamp
