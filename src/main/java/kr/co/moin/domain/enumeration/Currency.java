@@ -24,11 +24,11 @@ public enum Currency {
     @Override
     public double commissionRate(double amount) {
       if (amount > 0 && amount <= 1000000) {
-        return 0.2;
+        return 0.002;
       }
 
       if (amount > 1000000) {
-        return 0.1;
+        return 0.001;
       }
 
       return 0;
@@ -48,7 +48,7 @@ public enum Currency {
     @Override
     public double commissionRate(double amount) {
       if (amount > 0) {
-        return 0.5;
+        return 0.005;
       }
 
       return 0;

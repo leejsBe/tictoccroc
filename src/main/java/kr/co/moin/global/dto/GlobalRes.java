@@ -5,15 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @ToString
 public class GlobalRes {
 
+  @Builder.Default
   @Schema(description = "결과 코드")
-  private int resultCode;
+  private int resultCode = 200;
 
   @Builder.Default
   @Schema(description = "응담 메세지(에러 발생 시)")
@@ -21,7 +23,6 @@ public class GlobalRes {
 
 
   public GlobalRes() {
-    this.resultCode = 200;
     this.resultMsg = "OK";
   }
 

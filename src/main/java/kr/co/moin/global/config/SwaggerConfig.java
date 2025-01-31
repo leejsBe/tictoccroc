@@ -23,7 +23,7 @@ public class SwaggerConfig {
       .title("MOIN")
       .version("1.0")
       .contact(contact)
-      .description("")
+      .description("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmciLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzM4MzAzMjUxfQ.UqN9jERWoqrk8yiYRexUaPUBQvVzF1ROwGFp9tvN85yrfXSo2Roa9rK2y5j3B9conc64JXeKorgh_a201q9WlQ")
       .license(new License().name("Terms of service").url(""));
 
     SecurityScheme securityScheme = new SecurityScheme()
@@ -44,8 +44,8 @@ public class SwaggerConfig {
 
 
   @Bean
-  public GroupedOpenApi userApi() {
-    String[] paths = {"/v3/user/**"};
+  public GroupedOpenApi apis() {
+    String[] paths = {"/v3/user/**", "/v3/transfer/**"};
     String[] packagesToScan = {"kr.co.moin"};
 
     return GroupedOpenApi.builder()
@@ -55,12 +55,4 @@ public class SwaggerConfig {
       .build();
   }
 
-
-  @Bean
-  public GroupedOpenApi sampleApi() {
-    return GroupedOpenApi.builder()
-      .group("Test sample")
-      .pathsToMatch("/test/**", "/test/**")
-      .build();
-  }
 }

@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "history")
+@Table(name = "request")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class History {
+public class Request {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class History {
   private double fee;
 
   @Column(name = "usd_exchange_rate")
-  private double useExchangeRate;
+  private double usdExchangeRate;
 
   @Column(name = "usd_amount")
   private double usdAmount;

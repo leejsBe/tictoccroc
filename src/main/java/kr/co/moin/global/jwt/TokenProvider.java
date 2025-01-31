@@ -25,7 +25,7 @@ public class TokenProvider implements InitializingBean {
 
   @Value("${jwt.secret}")
   private String secret;
-  private final long tokenValidityInMilliseconds = 36000 * 1000;
+  private final long tokenValidityInMilliseconds = 1800 * 1000; /// 30분
 
   private static final String AUTHORITIES_KEY = "auth";
   private Key key;
