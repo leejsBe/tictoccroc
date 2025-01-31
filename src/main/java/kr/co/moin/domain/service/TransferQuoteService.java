@@ -63,12 +63,12 @@ public class TransferQuoteService {
   }
 
 
-  private double calcExchangeRate(ExchangeInfoToApiRes exchangeInfoToApiRes) {
+  public double calcExchangeRate(ExchangeInfoToApiRes exchangeInfoToApiRes) {
     return new BigDecimal(String.valueOf(exchangeInfoToApiRes.getBasePrice())).divide(new BigDecimal(String.valueOf(exchangeInfoToApiRes.getCurrencyUnit()))).doubleValue();
   }
 
 
-  private double calcFee(Currency targetCurrency, long sourceAmount) {
+  public double calcFee(Currency targetCurrency, long sourceAmount) {
     double commissionRate = targetCurrency.commissionRate(sourceAmount);
     double fixedFee = targetCurrency.fixedFee(sourceAmount);
     return (sourceAmount * commissionRate) + fixedFee;
@@ -78,7 +78,7 @@ public class TransferQuoteService {
   /**
    * @param originAmount sourceAmount - fee
    */
-  private double calcTargetAmount(Currency targetCurrency, double originAmount, double exchangeRate) {
+  public double calcTargetAmount(Currency targetCurrency, double originAmount, double exchangeRate) {
     double targetAmount = originAmount / exchangeRate;
 
     int roundingDigits = getRoundingDigits(targetCurrency);

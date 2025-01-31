@@ -39,7 +39,7 @@ public class TransferRequestService {
     Quote quote = quoteRepo.findById(transferReq.getQuoteId()).orElseThrow(() -> new TransferRequestException(TransferRequestErrorCode.NOT_FOUND_QUOTE));
 
     validation(member, quote);
-    
+
     requestRepo.save(Request.builder()
       .member(member)
       .sourceAmount(quote.getSourceAmount())
@@ -54,7 +54,7 @@ public class TransferRequestService {
   }
 
 
-  private void validation(Member member, Quote quote) {
+  public void validation(Member member, Quote quote) {
     if (quote.getExpireTime().isBefore(LocalDateTime.now())) {
       throw new TransferRequestException(TransferRequestErrorCode.EXPIRE_DATE);
     }
@@ -75,7 +75,7 @@ public class TransferRequestService {
 
     double totalPrice = requestList.stream().map(Request::getUsdAmount).reduce(0D, Double::sum);
 
-    if (totalPrice + quote.getUsdAmount() > limitAmount) {
+    if (totalPrice + quote.getUsdAmount() >= limitAmount) {
       throw new TransferRequestException(TransferRequestErrorCode.LIMIT_EXCESS);
     }
   }

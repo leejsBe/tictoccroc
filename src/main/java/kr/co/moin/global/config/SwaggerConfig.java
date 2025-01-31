@@ -23,7 +23,7 @@ public class SwaggerConfig {
       .title("MOIN")
       .version("1.0")
       .contact(contact)
-      .description("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmciLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzM4MzAzMjUxfQ.UqN9jERWoqrk8yiYRexUaPUBQvVzF1ROwGFp9tvN85yrfXSo2Roa9rK2y5j3B9conc64JXeKorgh_a201q9WlQ")
+      .description("")
       .license(new License().name("Terms of service").url(""));
 
     SecurityScheme securityScheme = new SecurityScheme()
